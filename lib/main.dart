@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:supcoder_blog/page/blog_list_page.dart';
 import 'package:supcoder_blog/page/index_main_page.dart';
 
 void main() => runApp(MyApp());
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: IndexMainPage(),
+      home: BlogListPage(),
     );
   }
 }
