@@ -1,23 +1,20 @@
-
-
 import 'package:english_words/english_words.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BlogListPage extends StatefulWidget{
+import 'index_main_page.dart';
 
+class BlogListPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return new _BlogListPageState();
   }
-
 }
 
-
-class _BlogListPageState extends State<BlogListPage>{
-
+class _BlogListPageState extends State<BlogListPage> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _favourSets = new Set<WordPair>();
 
   _BlogListPageState();
 
@@ -25,7 +22,7 @@ class _BlogListPageState extends State<BlogListPage>{
   Widget build(BuildContext context) {
 //    final wordPair = new WordPair.random(); // 删除这两行
 //    return new Text(wordPair.asPascalCase);
-    return new Scaffold (
+    return new Scaffold(
       appBar: new AppBar(
         title: new Text('Startup Name Generator'),
       ),
@@ -53,25 +50,44 @@ class _BlogListPageState extends State<BlogListPage>{
             _suggestions.addAll(generateWordPairs().take(10));
           }
           return _buildRow(_suggestions[index]);
-        }
-    );
+        });
   }
 
   Widget _buildRow(WordPair suggestion) {
-    var pair = WordPair.random().asPascalCase;
+    final alreadySaved = _favourSets.contains(suggestion);
+//    var pair = WordPair.random().asPascalCase;
+    var pair = suggestion.asPascalCase;
     return new ListTile(
       title: new Text(
         pair,
         style: _biggerFont,
       ),
-      onTap: (){
-        _onTap(pair);
+      trailing: new Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: Colors.blue),
+      onTap: () {
+        setState(() {
+          if (alreadySaved) {
+            _favourSets.remove(suggestion);
+          } else {
+            _favourSets.add(suggestion);
+          }
+          if(alreadySaved){
+            _pushToBlogPage();
+          }
+        });
       },
     );
   }
 
-  void _onTap(String pair){
-    print(pair);
+  void _pushToBlogPage(){
+    Navigator.of(context).push(
+      new MaterialPageRoute(
+          builder:(context){
+            return new IndexMainPage();
+          }
+      )
+    );
   }
+
 
 }
