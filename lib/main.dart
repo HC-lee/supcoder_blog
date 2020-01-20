@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:supcoder_blog/page/blog_list_page.dart';
 import 'package:supcoder_blog/page/index_main_page.dart';
+import 'package:supcoder_blog/page/main/main_group_page.dart';
 
-void main() => runApp(MyApp());
+void main(){
+
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
 //        primaryColor: Colors.white,
         primarySwatch: Colors.blue,
       ),
-      home: BlogListPage(),
+      home: MainGroupPage(),
       routes:<String, WidgetBuilder> {
         '/a': (BuildContext context) => new MyHomePage(title: 'page A'),
         '/b': (BuildContext context) => new IndexMainPage(),
